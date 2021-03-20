@@ -62,6 +62,15 @@ import com.gitblit.utils.StringUtils;
  *
  */
 public class ConfigUserService implements IUserService {
+	public static void main(String[] args) throws Exception {
+		File realmFile = new File(ConfigUserService.class.getResource("/users-slow.conf").toURI());
+		ConfigUserService s = new ConfigUserService(realmFile);
+		s.read();
+		long start = System.currentTimeMillis();
+		s.write();
+		long duration = System.currentTimeMillis() - start;
+		System.err.println(String.format("Time to write config file: %d ms", duration));
+	}
 
 	private static final String TEAM = "team";
 
